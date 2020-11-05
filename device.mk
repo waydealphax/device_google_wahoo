@@ -764,6 +764,10 @@ PRODUCT_PROPERTY_OVERRIDES += \
 # Setting vendor SPL
 VENDOR_SECURITY_PATCH := "2020-10-05"
 
+# Elmyra
+PRODUCT_PACKAGES += \
+    ElmyraService
+
 include hardware/google/pixel/vibrator/drv2624/device.mk
 include hardware/google/pixel/mm/device_legacy.mk
 include hardware/google/pixel/thermal/device.mk
