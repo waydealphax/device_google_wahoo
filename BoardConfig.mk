@@ -37,6 +37,7 @@ BUILD_BROKEN_ENFORCE_SYSPROP_OWNER := true
 
 # Inline kernel building configs
 TARGET_KERNEL_CLANG_COMPILE := true
+TARGET_KERNEL_USE_DEFAULT_CLANG := true
 TARGET_KERNEL_SOURCE := kernel/google/wahoo
 TARGET_KERNEL_CONFIG := wahoo_defconfig
 TARGET_KERNEL_ARCH := arm64
