@@ -800,6 +800,3 @@ include hardware/google/pixel/thermal/device.mk
 
 # power HAL
 -include hardware/google/pixel/power-libperfmgr/aidl/device.mk
-
-# GAPPS
-$(call inherit-product, vendor/gapps/arm64/arm64-vendor.mk)
