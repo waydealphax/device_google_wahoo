@@ -801,3 +801,6 @@ include hardware/google/pixel/thermal/device.mk
 
 # power HAL
 -include hardware/google/pixel/power-libperfmgr/aidl/device.mk
+
+#Gapps Crdroid
+$(call inherit-product, vendor/gapps/basic/config.mk)
