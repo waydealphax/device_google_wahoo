@@ -67,6 +67,9 @@ PRODUCT_BROKEN_VERIFY_USES_LIBRARIES := true
 
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
+# Create more inodes for flexibility
+PRODUCT_INCREASE_INODE_COUNT := true
+
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/etc/init.recovery.hardware.rc:recovery/root/init.recovery.$(PRODUCT_HARDWARE).rc \
     $(LOCAL_PATH)/rootdir/etc/init.hardware.usb.rc:$(TARGET_COPY_OUT_VENDOR)/etc/init/hw/init.wahoo.usb.rc \
