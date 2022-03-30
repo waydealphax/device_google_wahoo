@@ -114,6 +114,8 @@ SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS := device/google/wahoo/sepolicy/private
 BOARD_VENDOR_SEPOLICY_DIRS += device/google/wahoo/sepolicy/verizon
 BOARD_VENDOR_SEPOLICY_DIRS += hardware/google/pixel-sepolicy/citadel
 BOARD_VENDOR_SEPOLICY_DIRS += hardware/google/pixel-sepolicy/powerstats
+BOARD_VENDOR_SEPOLICY_DIRS += device/lineage/sepolicy/common
+BOARD_VENDOR_SEPOLICY_DIRS += device/lineage/sepolicy/qcom
 
 TARGET_FS_CONFIG_GEN := device/google/wahoo/config.fs
 
