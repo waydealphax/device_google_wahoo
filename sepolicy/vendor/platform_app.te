@@ -1,0 +1,2 @@
+allow platform_app vendor_persist_camera_prop:file { getattr open };
+
