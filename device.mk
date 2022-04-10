@@ -189,10 +189,6 @@ PRODUCT_PACKAGES += \
     librmnetctl \
     libxml2
 
-# Remove unwanted packages
-PRODUCT_PACKAGES += \
-    RemovePackages
-
 # Audio fluence, ns, aec property, voice and media volume steps
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.qc.sdk.audio.fluencetype=fluencepro \
@@ -772,6 +768,10 @@ VENDOR_SECURITY_PATCH := "2020-10-05"
 # Elmyra
 PRODUCT_PACKAGES += \
     ElmyraService
+
+# Now Playing 
+PRODUCT_PACKAGES += \
+    NowPlayingOverlay 
 
 # Task profiles
 PRODUCT_COPY_FILES += \
