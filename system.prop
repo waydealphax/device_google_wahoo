@@ -70,3 +70,7 @@ persist.data.mode=concurrent
 # Soc
 ro.soc.manufacturer=Qualcomm
 ro.soc.model=MSM8998
+
+# Columbus
+persist.columbus.use_ap_sensor=true
+persist.columbus.model=tap7cls_crosshatch.tflite
