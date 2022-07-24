@@ -14,8 +14,6 @@
 # limitations under the License.
 #
 
-COMMON_PATH := device/google/wahoo
-
 TARGET_BOARD_PLATFORM := msm8998
 
 TARGET_ARCH := arm64
@@ -32,19 +30,6 @@ TARGET_2ND_CPU_VARIANT := cortex-a73
 
 BUILD_BROKEN_DUP_RULES := true
 BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
-BUILD_BROKEN_USES_BUILD_COPY_HEADERS := true
-BUILD_BROKEN_ENFORCE_SYSPROP_OWNER := true
-
-# Inline kernel building configs
-TARGET_KERNEL_CLANG_COMPILE := true
-TARGET_KERNEL_USE_DEFAULT_CLANG := true
-TARGET_KERNEL_SOURCE := kernel/google/wahoo
-TARGET_KERNEL_CONFIG := wahoo_defconfig
-TARGET_KERNEL_ARCH := arm64
-BOARD_KERNEL_IMAGE_NAME := Image.lz4-dtb
-TARGET_KERNEL_ADDITIONAL_FLAGS := \
-    DTC=$(shell pwd)/prebuilts/misc/$(HOST_OS)-x86/dtc/dtc \
-    MKDTIMG=$(shell pwd)/prebuilts/misc/$(HOST_OS)-x86/libufdt/mkdtimg
 
 BOARD_KERNEL_CMDLINE += androidboot.hardware=$(TARGET_BOOTLOADER_BOARD_NAME) androidboot.console=ttyMSM0 lpm_levels.sleep_disabled=1
 BOARD_KERNEL_CMDLINE += user_debug=31 msm_rtb.filter=0x37 ehci-hcd.park=3
@@ -74,9 +59,15 @@ BOARD_USES_RECOVERY_AS_BOOT := true
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 BOARD_USES_METADATA_PARTITION := true
 
+# Kernel
+BOARD_KERNEL_IMAGE_NAME := Image.lz4-dtb
+TARGET_COMPILE_WITH_MSM_KERNEL := true
+TARGET_KERNEL_SOURCE := kernel/google/wahoo
+TARGET_NEEDS_DTBOIMAGE := true
+
 # Partitions (listed in the file) to be wiped under recovery.
 TARGET_RECOVERY_WIPE := device/google/wahoo/recovery.wipe
-TARGET_RECOVERY_FSTAB := device/google/wahoo/rootdir/etc/fstab.hardware
+TARGET_RECOVERY_FSTAB := device/google/wahoo/fstab.hardware
 
 # Verified Boot
 BOARD_AVB_ENABLE := true
@@ -84,21 +75,20 @@ BOARD_AVB_MAKE_VBMETA_IMAGE_ARGS += --flags 3
 
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2684354560
 BOARD_SYSTEMIMAGE_JOURNAL_SIZE := 0
-TARGET_USERIMAGES_USE_EXT4 := true
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 26503790080
-BOARD_PERSISTIMAGE_PARTITION_SIZE := 33554432
 ifneq ($(PRODUCT_INCREASE_INODE_COUNT),true)
-BOARD_SYSTEMIMAGE_EXTFS_INODE_COUNT := 4096
+BOARD_SYSTEMIMAGE_EXTFS_INODE_COUNT := 5120
 else
 BOARD_SYSTEMIMAGE_EXTFS_INODE_COUNT := 8192
 endif
+TARGET_USERIMAGES_USE_EXT4 := true
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 26503790080
+BOARD_PERSISTIMAGE_PARTITION_SIZE := 33554432
 BOARD_PERSISTIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_VENDORIMAGE_PARTITION_SIZE := 524288000
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
 BOARD_FLASH_BLOCK_SIZE := 131072
 
 # DTBO partition definitions
-TARGET_NEEDS_DTBOIMAGE := true
 BOARD_DTBOIMG_PARTITION_SIZE := 8388608
 
 TARGET_COPY_OUT_VENDOR := vendor
@@ -114,8 +104,6 @@ SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS := device/google/wahoo/sepolicy/private
 BOARD_VENDOR_SEPOLICY_DIRS += device/google/wahoo/sepolicy/verizon
 BOARD_VENDOR_SEPOLICY_DIRS += hardware/google/pixel-sepolicy/citadel
 BOARD_VENDOR_SEPOLICY_DIRS += hardware/google/pixel-sepolicy/powerstats
-BOARD_VENDOR_SEPOLICY_DIRS += device/lineage/sepolicy/common
-BOARD_VENDOR_SEPOLICY_DIRS += device/lineage/sepolicy/qcom
 
 TARGET_FS_CONFIG_GEN := device/google/wahoo/config.fs
 
@@ -153,7 +141,6 @@ BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 BOARD_HOSTAPD_PRIVATE_LIB := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
 WIFI_HIDL_FEATURE_AWARE := true
 WIFI_HIDL_UNIFIED_SUPPLICANT_SERVICE_RC_ENTRY := true
-WIFI_HIDL_FEATURE_DUAL_INTERFACE := true
 
 # CHRE
 CHRE_DAEMON_ENABLED := true
@@ -178,9 +165,12 @@ VSYNC_EVENT_PHASE_OFFSET_NS := 2000000
 SF_VSYNC_EVENT_PHASE_OFFSET_NS := 6000000
 
 # Display
-TARGET_HAS_WIDE_COLOR_DISPLAY := true
-TARGET_HAS_HDR_DISPLAY := true
+TARGET_HAS_WIDE_COLOR_DISPLAY := false
+TARGET_HAS_HDR_DISPLAY := false
 TARGET_USES_COLOR_METADATA := true
+
+# Charger Mode
+BOARD_CHARGER_ENABLE_SUSPEND := true
 
 # Vendor Interface Manifest
 DEVICE_MANIFEST_FILE := device/google/wahoo/manifest.xml
@@ -202,3 +192,6 @@ AB_OTA_PARTITIONS += \
     vendor
 
 BUILD_BROKEN_ENFORCE_SYSPROP_OWNER := true
+
+# Allow Lineage config to override others
+-include device/google/wahoo/BoardConfigLineage.mk

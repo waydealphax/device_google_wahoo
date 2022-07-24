@@ -23,7 +23,7 @@
 #include <linux/uinput.h>
 #include <android/looper.h>
 #include <android/sensor.h>
-#include <log/log.h>
+#include <cutils/log.h>
 
 // Hall-effect sensor type
 #define SENSOR_TYPE 33171016

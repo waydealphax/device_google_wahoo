@@ -1,3 +1,2 @@
 # suppress spurious denials
 dontaudit untrusted_app_all sysfs_zram:dir search;
-dontaudit untrusted_app_all hal_memtrack_hwservice:hwservice_manager { find };
